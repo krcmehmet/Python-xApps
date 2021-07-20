@@ -1,52 +1,24 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Aug 25 18:15:10 2020
+Created on Mon Aug 24 17:11:29 2020
+
+@author: sarik
+
+Modified on Tue Aug 25 18:15:10 2020
 
 @author: mehmet.karaca
 """
 
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 24 17:11:29 2020
-
-@author: sarik
-"""
 
 import pandas as pd
-import numpy as np
-from datetime import datetime, timedelta
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error 
-import xgboost
-from xgboost import XGBRegressor
 from sklearn.metrics import mean_squared_error
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from datetime import datetime, timedelta
-from sklearn.preprocessing import StandardScaler
-from torch.autograd import Variable
-import time
-import random
-import torch.optim as optim
-import torch.utils.data as Data
-
-from numpy import loadtxt
-
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
-
-import pathlib
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-
-import tensorflow as tf
-
 from tensorflow import keras
-from tensorflow.keras import layers
 
 import csv
 
@@ -54,7 +26,6 @@ import csv
 model = Sequential([
   Dense(16,  input_dim=49, kernel_initializer='normal', activation='relu'),
   Dense(16, activation='relu'),
-  #Dense(16, activation='relu'),
   Dense(1, activation='sigmoid'),
 ])
 
