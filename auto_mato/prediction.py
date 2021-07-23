@@ -14,11 +14,11 @@ Modified on Tue Aug 25 18:15:10 2020
 import csv
 
 import pandas as pd
+from keras.layers import Dense
+from keras.models import Sequential
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.model_selection import train_test_split
 from tensorflow import keras
-from keras.layers import Dense
-from keras.models import Sequential
 
 # Neural network
 model = Sequential(
