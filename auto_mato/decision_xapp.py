@@ -10,11 +10,16 @@ from ricxappframe.xapp_frame import Xapp
 
 from auto_mato.common import _RMR_PORT
 
-# from .decision import basic_decider  # TODO: This will be implemented the in file decider.py
+#from decision import basic_decider  # TODO: This will be implemented the in file decider.py
+
+
+T = 100  #Total PRBs of the system
 
 
 def basic_decider(prediction: float) -> bool:
-    return True if prediction > 0.5 else False
+    allocated_PRB_to_ES = T- (prediction/100)*T
+    print(f"\n Estimated PRB usage of other slice: {(prediction/100)*T}")
+    print(f"\n Allocated PRB to Emergency Slice : {allocated_PRB_to_ES }")
 
 
 def parse_decision_message(input: dict) -> dict:

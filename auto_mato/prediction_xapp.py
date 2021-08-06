@@ -12,11 +12,11 @@ from ricxappframe.xapp_frame import Xapp
 
 from auto_mato.common import _RMR_MSG_TYPE, _RMR_PORT
 
-# from .prediction import basic_predictor  # TODO: This will be implemented the in file prediction.py
+from .prediction import basic_predictor  # TODO: This will be implemented the in file prediction.py
 
 
-def basic_predictor() -> float:
-    return random.random()
+#def basic_predictor() -> float:
+#    return random.random()
 
 
 def entry(self):
