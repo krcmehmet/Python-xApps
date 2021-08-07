@@ -42,7 +42,5 @@ if available_slice_for_ES > ES_need_PRB:
 else:
     print("The current available PRB is not enoıgh for ES. Borrow PRBS form other slice. Switch to dynamic network slicing")
         
-def basic_decider(self):
-    if available_slice_for_ES > ES_need_PRB:
-    
+
     

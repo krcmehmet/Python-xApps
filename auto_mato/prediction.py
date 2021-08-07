@@ -158,5 +158,8 @@ print(f'MAE Test = {mean_absolute_error(y_true=y_test, y_pred=gp1.predict(X_test
 
 
 
-def basic_predictor(self):
-    return max(data_df['y_pred_upr'])
+def basic_prediction(data_df):
+    K =  max(data_df['y_pred_upr'])
+    return K
+
+print(f"Predicted value: {basic_prediction(data_df)}")
