@@ -1,29 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul 20 22:23:00 2021
+decision_xapp.py, Decision service.
 
-@author: dtayli
+@author: Team AutoMato
 """
 import json
 
 from ricxappframe.xapp_frame import Xapp
 
 from auto_mato.common import _RMR_PORT
-
-#from decision import basic_decider  # TODO: This will be implemented the in file decider.py
-
-
-T = 100  #Total PRBs of the system
+from decision import basic_decider
 
 
-def basic_decider(prediction: float) -> bool:
-    allocated_PRB_to_ES = T- (prediction/100)*T
-    print(f"\n Estimated PRB usage of other slice: {(prediction/100)*T}")
-    print(f"\n Allocated PRB to Emergency Slice : {allocated_PRB_to_ES }")
-
-
-def parse_decision_message(input: dict) -> dict:
-    return input
+def parse_decision_message(message: dict) -> dict:
+    return message
 
 
 def entry(self):
@@ -39,7 +29,6 @@ def entry(self):
 
         if messages:
             # We are only concerned with the last message.
-            message = None
             for (message, raw_message) in messages:
                 # Need to free the raw_message to prevent memory leaks
                 if message:
@@ -51,9 +40,8 @@ def entry(self):
                     )
 
                     # Call the decision function
-                    result = basic_decider(**decider_inputs)
                     print(f"\nDecider inputs: {decider_inputs}")
-                    print(f">>> Decider result is: {result}\n")
+                    _result = basic_decider(**decider_inputs)
 
                     # TODO: Set changes downstream
                 self.rmr_free(raw_message)

@@ -1,26 +1,38 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul 20 22:23:00 2021
+prediction_xapp.py, Prediction service.
 
-@author: dtayli
+@author: Team AutoMato
 """
+import itertools
 import json
-import random
+import os
 import time
 
+import numpy as np
 from ricxappframe.xapp_frame import Xapp
 
 from auto_mato.common import _RMR_MSG_TYPE, _RMR_PORT
+from prediction import Predictor
 
-from .prediction import basic_predictor  # TODO: This will be implemented the in file prediction.py
+_TIME_SERIES_RANGE = 150
 
 
-#def basic_predictor() -> float:
-#    return random.random()
+def generate_input_time_series() -> np.ndarray:
+    time_point = itertools.cycle(range(_TIME_SERIES_RANGE))
+    while True:
+        yield np.array((next(time_point),)).reshape(-1, 1)
 
 
 def entry(self):
     print("Starting prediction_xapp loop")
+
+    # Load prediction model, TODO: remove the path and add a proper path in common.py
+    predictor = Predictor(os.path.join(os.getcwd(), "/data/basic_prediction_model.pkl"))
+
+    # Time series data generator, this will be replaced by inbound simulation data
+    data = generate_input_time_series()
+
     not_kill = True
     while not_kill:
         # Healthcheck for RMR and SDL
@@ -29,7 +41,7 @@ def entry(self):
             not_kill = False
 
         # Send predicted values over RMR to decider_xapp
-        predicted_value = basic_predictor()
+        predicted_value = predictor.predict(next(data))
 
         print(f"Predicted value: {predicted_value}")
 
