@@ -32,6 +32,7 @@ COPY pyproject.toml .
 # Install package
 RUN poetry install --no-dev
 
+
 COPY ./auto_mato ./auto_mato
 COPY ./data/basic_prediction_model.pkl ./data/basic_prediction_model.pkl
 RUN poetry install --no-dev

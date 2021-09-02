@@ -40,7 +40,7 @@ def entry(self):
                     )
 
                     # Call the decision function
-                    print(f"\nDecider inputs: {decider_inputs}")
+                    print(f"\nDecider inputs (Estimated PRB utilization %): {decider_inputs}")
                     _result = basic_decider(**decider_inputs)
 
                     # TODO: Set changes downstream

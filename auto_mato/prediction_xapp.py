@@ -28,7 +28,8 @@ def entry(self):
     print("Starting prediction_xapp loop")
 
     # Load prediction model, TODO: remove the path and add a proper path in common.py
-    predictor = Predictor(os.path.join(os.getcwd(), "/data/basic_prediction_model.pkl"))
+    predictor_slice1 = Predictor(os.path.join(os.getcwd(), "/data/basic_prediction_model.pkl"))
+    predictor_slice2 = Predictor(os.path.join(os.getcwd(), "/data/basic_prediction_model.pkl"))
 
     # Time series data generator, this will be replaced by inbound simulation data
     data = generate_input_time_series()
@@ -41,11 +42,15 @@ def entry(self):
             not_kill = False
 
         # Send predicted values over RMR to decider_xapp
-        predicted_value = predictor.predict(next(data))
+        predicted_value_slice1 = predictor_slice1.predict(next(data))
+        predicted_value_slice2 = predictor_slice2.predict(next(data))
 
-        print(f"Predicted value: {predicted_value}")
+        print(f"Predicted value for Slice 1: {predicted_value_slice1}")
+        print(f"Predicted value for Slice 2: {predicted_value_slice2}")
+        
+        predicted_value = [predicted_value_slice1, predicted_value_slice2]
 
-        val = json.dumps({"prediction": predicted_value}).encode()
+        val = json.dumps({"prediction": predicted_value}).encode() #predicted value  liste seklşinde gonder iki deger icin
         if not self.rmr_send(val, _RMR_MSG_TYPE):
             print("Error sending rmr message.")
 

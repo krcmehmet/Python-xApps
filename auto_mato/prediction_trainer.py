@@ -34,7 +34,7 @@ t = np.arange(n)
 
 data_df = pd.DataFrame({'t': t})
 
-df = pd.read_csv('/home/meldor/enki/openran/Python-xApps/data/pla.csv')
+df = pd.read_csv('/Users/mehmetkrc/Desktop/built-a-thon/Python-xApps/data/pla.csv')
 df = df[df.columns.difference(['Unnamed: 0'])]
 
 input_data = df.iloc[:, :1].values
@@ -75,12 +75,12 @@ ax.set(title='Sample Data 1', xlabel='t', ylabel='')
 k0 = WhiteKernel(noise_level=0.3 ** 2, noise_level_bounds=(0.1 ** 2, 0.5 ** 2))
 
 k1 = ConstantKernel(constant_value=2) * \
-     ExpSineSquared(length_scale=1.0, periodicity=40, periodicity_bounds=(35, 45))
+     ExpSineSquared(length_scale=1.0, periodicity=0.1, periodicity_bounds=(0.01, 45))
 
 k2 = ConstantKernel(constant_value=10, constant_value_bounds=(1e-2, 1e3)) * \
      RBF(length_scale=1e2, length_scale_bounds=(1, 1e3))
 
-kernel_1 = k0 + k1 + k2
+kernel_1  = k1
 
 gp1 = GaussianProcessRegressor(
     kernel=kernel_1,
@@ -92,7 +92,7 @@ gp1 = GaussianProcessRegressor(
 X = data_df['t'].values.reshape(n, 1)
 y = data_df['y1'].values.reshape(n, 1)
 
-prop_train = 0.7
+prop_train = 0.6
 n_train = round(prop_train * n)
 
 X_train = X[:n_train]
@@ -112,10 +112,9 @@ ax.set(title='GP1 Prior Samples', xlabel='t')
 
 gp1.fit(X_train, y_train)
 
-with open("/home/meldor/enki/openran/Python-xApps/data/basic_prediction_model.pkl", "wb") as f:
+with open("/Users/mehmetkrc//Desktop/built-a-thon/Python-xApps/data/basic_prediction_model.pkl", "wb") as f:
     pickle.dump(gp1, f)
-
-np.save("/home/meldor/enki/openran/Python-xApps/data/input_time_series", X)
+#np.save("/Users/mehmetkrc//Desktop/build-a-thon/Python-xApps/data/input_time_series", y)
 y_pred, y_std = gp1.predict(X, return_std=True)
 
 data_df['y_pred'] = y_pred
