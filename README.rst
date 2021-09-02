@@ -1,15 +1,14 @@
 # Python-xApps
 Python codes  for RIC xApp for prediction and decision
-There are two Python codes and also data (dataset1.csv).
 
-First Python code: xapp_prediction.py 
 
-It implements a Neural Network as a ML model to make prediction. Given tha data (dataset1.csv), it perfoms training and also validation. 
-Testing performance is based on root mean square (RMSE). RMSE value (a floating number) found after running this code is saved  to be the input for the next xapp. As a simple PoC study, this RMSE value will be our message to be sent to next xapp, xapp_decision,  through RMR.  
+ Python code: xapp_prediction.py 
 
-Second Python code: xapp_decision.py 
+It implements Gaussain Process Regression (GPR) as a ML model to make prediction. Given tha data (pla.csv), which PRB utilization taken from a real network in percentage, it perfoms training and also validation. Testing performance is based on MAE. This xapp forecasts PRB utilization in near future (e.g, next 500 ms.). We train GPR with prediciton.py and save it. This xapp takes the save model and use it. 
 
-It makes a decision given the input (RMSE value) from xapp_predicition. At the moment, it just makes very simple decision: If RMSE is below a threshold it prints "RMSE is good enough, continue". This will be the second xapp and sends back an ACK to xapp_prediction when the message is received correctly. 
+ Python code: xapp_decision.py 
+
+It makes a decision given the input from xapp_predicition.  It implements two different algorithms ALG1 and ALG2. In decision.py there is paramater ALG which needs to be set  to 1 if ALG1 wants to be run. After this change it needs to rebuilt  and use sudo docker-compose build (after any code change it needs to rebuilt). This will be the second xapp and sends back an ACK to xapp_prediction when the message is received correctly. 
 
 ## Installation
 
