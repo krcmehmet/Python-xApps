@@ -1,6 +1,7 @@
 # Python-xApps
 Python codes  for RIC xApp for prediction and decision
 
+NOTE: Please use Ubuntu (20.04 works fine). We got problems about RMR messaging with MAC OS and  have not tried with Windows. 
 
  Python code: xapp_prediction.py 
 
