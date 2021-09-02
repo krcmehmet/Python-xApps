@@ -8,7 +8,11 @@ It implements Gaussain Process Regression (GPR) as a ML model to make prediction
 
  Python code: xapp_decision.py 
 
-It makes a decision given the input from xapp_predicition.  It implements two different algorithms ALG1 and ALG2. In decision.py there is paramater ALG which needs to be set  to 1 if ALG1 wants to be run. After this change it needs to rebuilt  and use sudo docker-compose build (after any code change it needs to rebuilt). This will be the second xapp and sends back an ACK to xapp_prediction when the message is received correctly. 
+It makes a decision given the input from xapp_predicition.  It implements two different algorithms ALG1 and ALG2. In decision.py there is paramater ALG which needs to be set  to 1 if ALG1 wants to be run. After this change it needs to rebuilt  and use
+```
+sudo docker-compose build
+```
+(after any code change it needs to rebuilt). This will be the second xapp and sends back an ACK to xapp_prediction when the message is received correctly. 
 
 ## Installation
 
