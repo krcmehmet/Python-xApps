@@ -1,0 +1,8 @@
+FROM rust:latest
+
+RUN cargo install miniserve
+
+WORKDIR /src/server/
+COPY ./data/basic_prediction_model* ./data/
+
+CMD miniserve ./data/
