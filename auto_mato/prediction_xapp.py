@@ -35,7 +35,8 @@ def entry(self):
 
     # Load prediction model, TODO: remove the path and add a proper path in common.py
     model = model_handler.models[0]
-    print(f"Using default model: {model}")
+    print(f"Fetching model {model}")
+    model_handler.pull_model(model)
     predictor_slice1 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, model))
     predictor_slice2 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, model))
 

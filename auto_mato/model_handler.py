@@ -9,8 +9,7 @@ import requests
 import urllib.request
 from bs4 import BeautifulSoup
 
-from .prediction_xapp import _DATA_FOLDER
-
+_DATA_FOLDER = "./data/"
 
 # TODO: Fetch models from server
 _FILE_SERVER = "http://[::1]:8080"
@@ -29,7 +28,7 @@ class ModelHandler:
 
     def pull_model(self, model_name):
         try:
-            urllib.request.urlretrieve("/" + model_name, os.path.join(_DATA_FOLDER, model_name))
+            urllib.request.urlretrieve(_FILE_SERVER, os.path.join(_DATA_FOLDER, model_name))
         except Exception as err:
             print(f"Couldn't retrive model {model_name}, {err}")
 
