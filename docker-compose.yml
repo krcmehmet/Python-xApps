@@ -4,7 +4,6 @@ services:
         build:
             context: .
             dockerfile: ./docker/Dockerfile-prediction
-        #image: prediction-xapp:latest
         network_mode: "host"
         depends_on:
           - "decision_app"
@@ -13,6 +12,12 @@ services:
         build:
             context: .
             dockerfile: ./docker/Dockerfile-decision
-        #image: decision-xapp:latest
         network_mode: "host"
 
+    miniserve_app:
+        build:
+            context: .
+            dockerfile: ./docker/Dockerfile-miniserve
+        network_mode: "host"
+        depends_on:
+          - "prediction_app"

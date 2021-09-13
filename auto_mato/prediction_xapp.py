@@ -15,6 +15,7 @@ from ricxappframe.xapp_frame import Xapp
 from auto_mato.common import _RMR_MSG_TYPE, _RMR_PORT
 from prediction import Predictor
 
+_DATA_FOLDER = "/data"
 _TIME_SERIES_RANGE = 150
 
 
@@ -28,8 +29,8 @@ def entry(self):
     print("Starting prediction_xapp loop")
 
     # Load prediction model, TODO: remove the path and add a proper path in common.py
-    predictor_slice1 = Predictor(os.path.join(os.getcwd(), "/data/basic_prediction_model.pkl"))
-    predictor_slice2 = Predictor(os.path.join(os.getcwd(), "/data/basic_prediction_model.pkl"))
+    predictor_slice1 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, "basic_prediction_model.pkl"))
+    predictor_slice2 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, "basic_prediction_model.pkl"))
 
     # Time series data generator, this will be replaced by inbound simulation data
     data = generate_input_time_series()
