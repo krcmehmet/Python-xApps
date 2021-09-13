@@ -33,9 +33,10 @@ class ModelHandler:
         except Exception as err:
             print(f"Couldn't retrive model {model_name}, {err}")
 
-    def switch_model(self, model_name):
+    def switch_model(self, model_name) -> str:
         if model_name not in self._local_models:
             self.pull_model(model_name)
+        return model_name
 
     @property
     def models(self):
