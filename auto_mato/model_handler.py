@@ -28,7 +28,7 @@ class ModelHandler:
 
     def pull_model(self, model_name):
         try:
-            urllib.request.urlretrieve(_FILE_SERVER, os.path.join(_DATA_FOLDER, model_name))
+            urllib.request.urlretrieve(os.path.join(_FILE_SERVER, model_name), os.path.join(_DATA_FOLDER, model_name))
         except Exception as err:
             print(f"Couldn't retrive model {model_name}, {err}")
 
