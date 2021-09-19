@@ -8,6 +8,7 @@ import itertools
 import json
 import os
 import time
+import random
 
 import numpy as np
 from ricxappframe.xapp_frame import Xapp
@@ -18,6 +19,7 @@ from prediction import Predictor
 
 _DATA_FOLDER = "/data"
 _TIME_SERIES_RANGE = 150
+_MODEL_SWITCH_TIME = 10.0
 
 
 def generate_input_time_series() -> np.ndarray:
@@ -35,7 +37,7 @@ def entry(self):
 
     # Load prediction model, TODO: remove the path and add a proper path in common.py
     model = model_handler.models[0]
-    print(f"Fetching model {model}")
+    print(f"\nFetching model {model}\n")
     model_handler.pull_model(model)
     predictor_slice1 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, model))
     predictor_slice2 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, model))
@@ -43,12 +45,22 @@ def entry(self):
     # Time series data generator, this will be replaced by inbound simulation data
     data = generate_input_time_series()
 
-    not_kill = True
+    not_kill, start_time = True, time.time()
     while not_kill:
         # Healthcheck for RMR and SDL
         if not self.healthcheck():
             self.logger.error("Healthcheck failed. Terminating xApp.")
             not_kill = False
+
+        current_time = time.time()
+        # Time check to switch models (demo purposes)
+        if current_time - start_time > _MODEL_SWITCH_TIME:
+            start_time = current_time
+            model_name = random.choice(model_handler.models)
+            print(f"\nFetching model {model_name}\n")
+            model_handler.pull_model(model_name)
+            predictor_slice1.switch_model(os.path.join(os.getcwd(), _DATA_FOLDER, model_name))
+            predictor_slice2.switch_model(os.path.join(os.getcwd(), _DATA_FOLDER, model_name))
 
         # Send predicted values over RMR to decider_xapp
         predicted_value_slice1 = predictor_slice1.predict(next(data))
@@ -56,7 +68,7 @@ def entry(self):
 
         print(f"Predicted value for Slice 1: {predicted_value_slice1}")
         print(f"Predicted value for Slice 2: {predicted_value_slice2}")
-        
+
         predicted_value = [predicted_value_slice1, predicted_value_slice2]
 
         val = json.dumps({"prediction": predicted_value}).encode() #predicted value  liste seklşinde gonder iki deger icin

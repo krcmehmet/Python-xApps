@@ -33,3 +33,13 @@ class Predictor:
         prediction: np.ndarray
         """
         return self.model.predict(data).item()
+
+    def switch_model(self, new_model: str) -> None:
+        """Switches current model with the new one.
+
+        Parameters
+        ----------
+        new_model: Pickled scikit-learn model file.
+        """
+        with open(new_model, "rb") as file:
+            self.model = pickle.load(file)
