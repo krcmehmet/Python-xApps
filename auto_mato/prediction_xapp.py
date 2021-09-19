@@ -13,6 +13,7 @@ import numpy as np
 from ricxappframe.xapp_frame import Xapp
 
 from auto_mato.common import _RMR_MSG_TYPE, _RMR_PORT
+from model_handler import ModelHandler
 from prediction import Predictor
 
 _DATA_FOLDER = "/data"
@@ -28,9 +29,16 @@ def generate_input_time_series() -> np.ndarray:
 def entry(self):
     print("Starting prediction_xapp loop")
 
+    print("Fetching available models")
+    model_handler = ModelHandler()
+    print(f"Available models are: {model_handler.models}")
+
     # Load prediction model, TODO: remove the path and add a proper path in common.py
-    predictor_slice1 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, "basic_prediction_model.pkl"))
-    predictor_slice2 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, "basic_prediction_model.pkl"))
+    model = model_handler.models[0]
+    print(f"Fetching model {model}")
+    model_handler.pull_model(model)
+    predictor_slice1 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, model))
+    predictor_slice2 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, model))
 
     # Time series data generator, this will be replaced by inbound simulation data
     data = generate_input_time_series()
