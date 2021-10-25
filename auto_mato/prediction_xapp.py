@@ -71,7 +71,7 @@ def entry(self):
 
         predicted_value = [predicted_value_slice1, predicted_value_slice2]
 
-        val = json.dumps({"prediction": predicted_value}).encode() #predicted value  liste seklşinde gonder iki deger icin
+        val = json.dumps({"prediction": predicted_value}).encode() #predicted value
         if not self.rmr_send(val, _RMR_MSG_TYPE):
             print("Error sending rmr message.")
 

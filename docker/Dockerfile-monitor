@@ -27,7 +27,7 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 ENV PATH = "${PATH}:/root/.poetry/bin"
 
 # Copy python package
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml .
 
 # Install package
 RUN poetry install --no-dev
@@ -38,4 +38,4 @@ RUN poetry install --no-dev
 
 # Run
 ENV PYTHONUNBUFFERED 1
-CMD poetry run python3 ./auto_mato/decision_xapp.py
+CMD poetry run python3 ./auto_mato/monitor_xapp.py
