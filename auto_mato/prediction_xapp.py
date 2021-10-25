@@ -11,6 +11,9 @@ import time
 import random
 
 import numpy as np
+
+from mdclogpy import Logger
+from mdclogpy import Level
 from ricxappframe.xapp_frame import Xapp
 
 from auto_mato.common import _RMR_MSG_TYPE, _RMR_PORT
@@ -21,6 +24,9 @@ _DATA_FOLDER = "/data"
 _TIME_SERIES_RANGE = 150
 _MODEL_SWITCH_TIME = 10.0
 
+logger = Logger(name="Prediction")
+logger.mdclog_format_init(configmap_monitor=False)
+
 
 def generate_input_time_series() -> np.ndarray:
     time_point = itertools.cycle(range(_TIME_SERIES_RANGE))
@@ -29,15 +35,15 @@ def generate_input_time_series() -> np.ndarray:
 
 
 def entry(self):
-    print("Starting prediction_xapp loop")
+    logger.info("Prediction xApp initialized")
 
-    print("Fetching available models")
+    logger.info("Fetching available models")
     model_handler = ModelHandler()
-    print(f"Available models are: {model_handler.models}")
+    logger.info(f"Available models are: {model_handler.models}")
 
     # Load prediction model, TODO: remove the path and add a proper path in common.py
     model = model_handler.models[0]
-    print(f"\nFetching model {model}\n")
+    logger.info(f"\nFetching model {model}\n")
     model_handler.pull_model(model)
     predictor_slice1 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, model))
     predictor_slice2 = Predictor(os.path.join(os.getcwd(), _DATA_FOLDER, model))
@@ -49,7 +55,7 @@ def entry(self):
     while not_kill:
         # Healthcheck for RMR and SDL
         if not self.healthcheck():
-            self.logger.error("Healthcheck failed. Terminating xApp.")
+            logger.error("Healthcheck failed. Terminating xApp.")
             not_kill = False
 
         current_time = time.time()
@@ -57,7 +63,7 @@ def entry(self):
         if current_time - start_time > _MODEL_SWITCH_TIME:
             start_time = current_time
             model_name = random.choice(model_handler.models)
-            print(f"\nFetching model {model_name}\n")
+            logger.info(f"\nFetching model {model_name}\n")
             model_handler.pull_model(model_name)
             predictor_slice1.switch_model(os.path.join(os.getcwd(), _DATA_FOLDER, model_name))
             predictor_slice2.switch_model(os.path.join(os.getcwd(), _DATA_FOLDER, model_name))
@@ -65,25 +71,24 @@ def entry(self):
         # Send predicted values over RMR to decider_xapp
         predicted_value_slice1 = predictor_slice1.predict(next(data))
         predicted_value_slice2 = predictor_slice2.predict(next(data))
-
-        print(f"Predicted value for Slice 1: {predicted_value_slice1}")
-        print(f"Predicted value for Slice 2: {predicted_value_slice2}")
-
         predicted_value = [predicted_value_slice1, predicted_value_slice2]
+
+        logger.info(f"Predicted values:  {predicted_value}")
+
 
         val = json.dumps({"prediction": predicted_value}).encode() #predicted value
         if not self.rmr_send(val, _RMR_MSG_TYPE):
-            print("Error sending rmr message.")
+            logger.error("Error sending rmr message.")
 
         # RMR returned call from the decision xApp
         for (summary, sbuf) in self.rmr_get_messages():
-            print("Returned call: {0}".format(summary))
+            logger.info("Returned call: {0}".format(summary))
             self.rmr_free(sbuf)
 
         time.sleep(2)
 
 
 if __name__ == "__main__":
-    # TODO: We are currently using the fake sdl for development. This should be replaced with redis.
+    logger.set_level(Level.INFO)
     xapp = Xapp(entrypoint=entry, rmr_port=_RMR_PORT, use_fake_sdl=True)
     xapp.run()
