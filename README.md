@@ -1,13 +1,13 @@
 # Python-xApps
 Python codes  for RIC xApp for prediction and decision
 
-NOTE: Please use Ubuntu (20.04 works fine). We got problems about RMR messaging with MAC OS and  have not tried with Windows. 
+NOTE: Only Linux systems are supported (Ubuntu 20.04 works fine).
 
- Python code: xapp_prediction.py 
+### Python code: xapp_prediction.py 
 
-It implements Gaussain Process Regression (GPR) as a ML model to make prediction. Given tha data (pla.csv), which PRB utilization taken from a real network in percentage, it perfoms training and also validation. Testing performance is based on MAE. This xapp forecasts PRB utilization in near future (e.g, next 500 ms.). We train GPR with prediciton.py and save it. This xapp takes the save model and use it. 
+Implements Gaussain Process Regression (GPR) as a ML model to make prediction. Given tha data (pla.csv), which PRB utilization taken from a real network in percentage, it perfoms training and also validation. Testing performance is based on MAE. This xapp forecasts PRB utilization in near future (e.g, next 500 ms.). We train GPR with prediciton.py and save it. This xapp takes the save model and use it. 
 
- Python code: xapp_decision.py 
+### Python code: xapp_decision.py 
 
 It makes a decision given the input from xapp_predicition.  It implements two different algorithms ALG1 and ALG2. In decision.py there is paramater ALG which needs to be set  to 1 if ALG1 wants to be run. After this change it needs to rebuilt  and use
 ```
@@ -42,14 +42,3 @@ To stop containers use Ctrl+C, this will take a minute or two. Once this step is
 ```
 sudo docker-compose down -v
 ```
-
-## TODO: EVERYTHING
-- [] Unit tests
-- [] Add decision wrapper function in decision.py
-- [] Add prediction wrapper function in prediction.py
-- [] Helper class/function to create and parse messages between prediction-decision xApps
-- [] Add xApp for monitoring
-
-Additionally
-- [] Data retrieval from E2 or simulator
-- [] A1 intent processing
