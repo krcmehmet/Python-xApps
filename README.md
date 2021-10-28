@@ -5,11 +5,11 @@ NOTE: Only Linux systems are supported (Ubuntu 20.04 works fine).
 
 ### Python code: xapp_prediction.py 
 
-Implements Gaussain Process Regression (GPR) as a ML model to make prediction. Given tha data (pla.csv), which PRB utilization taken from a real network in percentage, it perfoms training and also validation. Testing performance is based on MAE. This xapp forecasts PRB utilization in near future (e.g, next 500 ms.). We train GPR with prediciton.py and save it. This xapp takes the save model and use it. 
+Implements Gaussian Process Regression (GPR) as a ML model to make prediction. Given tha data (pla.csv), which PRB utilization taken from a real network in percentage, it perfoms training and also validation. Testing performance is based on MAE. This xapp forecasts PRB utilization in near future (e.g, next 500 ms.). We train GPR with prediction.py and save it. This xapp takes the saved model and uses it. 
 
 ### Python code: xapp_decision.py 
 
-It makes a decision given the input from xapp_predicition.  It implements two different algorithms ALG1 and ALG2. In decision.py there is paramater ALG which needs to be set  to 1 if ALG1 wants to be run. After this change it needs to rebuilt  and use
+It makes a decision given the input from xapp_prediction. Two different algorithms are implemented, these are defined in the code as ALG1 and ALG2. In decision.py the variable ALG should be set to specify the running algorithm. If the algorithm type is changed the docker container needs to rebuilt. To rebuild the docker container use
 ```
 sudo docker-compose build
 ```
@@ -20,7 +20,6 @@ sudo docker-compose build
 ### Dependencies
 - Docker is required to build the containers, follow the installation guidelines.
 - docker-compose is used to orchestrate multiple xApps, follow the installation guidelines.
-
 
 ### Build docker images
 Once the dependencies use the following command to build the containers:
