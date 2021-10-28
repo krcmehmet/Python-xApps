@@ -77,7 +77,7 @@ def entry(self):
 
         # RMR returned call from the decision xApp
         for (summary, sbuf) in self.rmr_get_messages():
-            print("Retuned call: {0}".format(summary))
+            print("Returned call: {0}".format(summary))
             self.rmr_free(sbuf)
 
         time.sleep(2)
