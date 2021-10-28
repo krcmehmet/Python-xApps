@@ -1,4 +1,6 @@
-# Python-xApps
+# ITU AI Challenge: Build-a-Thon
+
+# Python xApps
 Python codes  for RIC xApp for prediction and decision
 
 NOTE: Only Linux systems are supported (Ubuntu 20.04 works fine).
