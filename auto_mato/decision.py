@@ -27,8 +27,8 @@ ALG = 2
 def basic_decider(prediction: List[float]) -> None:
     if ALG == 1:
         print('Results For ALG1')
-        allocated_prb_to_slice1 = math.floor((prediction[0] / 200) * T)
-        allocated_prb_to_slice2 = math.floor((prediction[1] / 200) * T)
+        allocated_prb_to_slice1 = math.floor((prediction[0] / 100) * T)
+        allocated_prb_to_slice2 = math.floor((prediction[1] / 100) * T)
         allocated_prb_to_es = T-(allocated_prb_to_slice1 + allocated_prb_to_slice1)
         print("\nEstimated PRB usage of Slice 1:", allocated_prb_to_slice1)
         print("\nEstimated PRB usage of Slice 2:", allocated_prb_to_slice2)
@@ -66,8 +66,8 @@ def basic_decider(prediction: List[float]) -> None:
             # Equations
             a1=round(float(prediction[0]*T1/100))
             a2=round(float(prediction[1]*T2/100))
-            print(f"Predicted value a1: {a1}")
-            print(f"Predicted value a2: {a2}")
+            #print(f"Predicted value a1: {a1}")
+            #print(f"Predicted value a2: {a2}")
             m.Equation(a1-(T1-b1)<=u1)
             m.Equation(a2-(T2-b2)<=u2)
             m.Equation(b1+b2==20)
@@ -77,6 +77,8 @@ def basic_decider(prediction: List[float]) -> None:
             print('Results For ALG2')
             #print('u1: ' + str(u1.value))
             #print('u2: ' + str(u2.value))
+            print(f"Predicted PRB utilization for Slice 1: {float(prediction[0])}")
+            print(f"Predicted PRB utilization for Slice 2: {float(prediction[1])}")
             print('Number of PRBs taken from slice 1: ' + str(b1.value))
             print('Number of PRBs taken from slice 2: : ' + str(b2.value))
             #print('Objective: ' + str(m.options.objfcnval))

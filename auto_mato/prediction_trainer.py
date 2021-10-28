@@ -80,7 +80,7 @@ k1 = ConstantKernel(constant_value=2) * \
 k2 = ConstantKernel(constant_value=10, constant_value_bounds=(1e-2, 1e3)) * \
      RBF(length_scale=1e2, length_scale_bounds=(1, 1e3))
 
-kernel_1  = k1
+kernel_1  = k2
 
 gp1 = GaussianProcessRegressor(
     kernel=kernel_1,
