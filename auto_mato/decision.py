@@ -22,7 +22,7 @@ from typing import List
 from gekko import GEKKO
 #def basic_decider(prediction: float) -> None: #float degil liste olacak  iki prediction icin
 
-ALG = 2
+ALG = 1
 
 def basic_decider(prediction: List[float]) -> None:
     if ALG == 1:

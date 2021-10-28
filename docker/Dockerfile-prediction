@@ -12,10 +12,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -s "https://packagecloud.io/install/repositories/o-ran-sc/release/script.deb.sh" | bash
 
 # Install RMR library
-RUN mkdir -p /opt/route/
-COPY ./auto_mato/route.rt /opt/route/route.rt
 ENV LD_LIBRARY_PATH /usr/local/lib/:/usr/local/lib64
-ENV RMR_SEED_RT /opt/route/route.rt
 
 RUN apt-get update && apt-get install -y \
     rmr=4.7.4 \
@@ -32,6 +29,9 @@ COPY pyproject.toml poetry.lock ./
 # Install package
 RUN poetry install --no-dev
 
+ENV RMR_SEED_RT /opt/route/route.rt
+RUN mkdir -p /opt/route/
+COPY ./auto_mato/route.rt /opt/route/route.rt
 COPY ./auto_mato ./auto_mato
 RUN mkdir ./data
 RUN poetry install --no-dev

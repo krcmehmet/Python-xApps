@@ -5,9 +5,8 @@ services:
             context: .
             dockerfile: ./docker/Dockerfile-prediction
         network_mode: "host"
-        depends_on:
-          - "decision_app"
-
+    #    depends_on:
+    #      - "decision_app"
     decision_app:
         build:
             context: .
@@ -28,7 +27,5 @@ services:
             context: .
             dockerfile: ./docker/Dockerfile-miniserve
         network_mode: "host"
-        depends_on:
-          - "prediction_app"
     redis:
         image: "redis:alpine"
