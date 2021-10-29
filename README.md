@@ -9,7 +9,7 @@ NOTE: Only Linux systems are supported (Ubuntu 20.04 works fine).
 
 ### Python code: xapp_prediction.py 
 
-For monitoring RAN resource we apply Gaussian Process Regression (GPR) as a ML model to make a time-series prediction for future traffic in the network. Given tha data (data from Conqureors team or pla.csv), which is PRB utilization, it perfoms training and also validation. Testing performance is based on MAE. With GPR we predict how much resource (PRB) will be availabe for emergence case in near future. The implementation is a RIC xapp which  forecasts PRB utilization  (e.g, at every 500 ms.). We train GPR with prediction.py. We have trained two differet ML models and saved them on a remote server, and these models can be  pulled and used dyanmically.  We also parse the intent coming from Winest team to find URL of source (data), model and sink.
+For monitoring RAN resource we apply Gaussian Process Regression (GPR) as a ML model to make a time-series prediction for future traffic in the network. Given tha data (data from Conqureors team or pla.csv), which is PRB utilization, it perfoms training and also validation. Testing performance is based on MAE. With GPR we predict how much resource (PRB) will be availabe for emergence case in near future. The implementation is a RIC xapp which  forecasts PRB utilization  (e.g, at every 500 ms.). We train GPR with prediction.py. We have trained two differet ML models and saved them on a remote server, and these models can be  pulled and used dynamically.  We also parse the intent coming from Winest team to find URL of source (data), model and sink.
 
 ### Python code: xapp_decision.py 
 
