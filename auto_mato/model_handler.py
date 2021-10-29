@@ -15,13 +15,13 @@ import json
 # Parse Intent  from Winest Team to read URLs
 
 
-with open('/Users/mehmetkrc/Desktop/ITU_Challenge_Github/ITUChallenge_BuildaThon_Activity4/data/source_api.json') as f:  # to be updated and entegrated
-  data_url = json.load(f)
+#with open('/data/source_api.json') as f:  # to be updated and entegrated
+#  data_url = json.load(f)
   
 _DATA_FOLDER = "./data/"  
   
-with open('/Users/mehmetkrc/Desktop/ITU_Challenge_Github/ITUChallenge_BuildaThon_Activity4/data/model_api.json') as f:  # to be updated and entegrated
-  mdeols_url = json.load(f)
+#with open('/data/model_api.json') as f:  # to be updated and entegrated
+#  models_url = json.load(f)
 
 _FILE_SERVER = "http://[::1]:8080"
 
