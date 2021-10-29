@@ -28,7 +28,7 @@ First using "git clone", clone this repo to your local. Then,
 - Install docker and docker-compose to your system.
 
 ### Build docker images
-Use the following command to build the containers:
+On the folder where you download this repor, use the following command to build the containers:
 ```
 sudo docker-compose build
 ```
