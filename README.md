@@ -20,13 +20,15 @@ sudo docker-compose build
 (after any code change it needs to rebuilt). This will be the second xapp and sends back an ACK to xapp_prediction when the message is received correctly. 
 
 ## Installation
+First using "git clone", clone this repo to your local. Then, 
 
 ### Dependencies
 - Docker is required to build the containers, follow the installation guidelines.
 - docker-compose is used to orchestrate multiple xApps, follow the installation guidelines.
+- Install docker and docker-compose to your system.
 
 ### Build docker images
-Once the dependencies use the following command to build the containers:
+Use the following command to build the containers:
 ```
 sudo docker-compose build
 ```
