@@ -18,12 +18,13 @@ from model_handler import ModelHandler
 from prediction import Predictor
 
 _DATA_FOLDER = "/data"
-_TIME_SERIES_RANGE = 150
+_TIME_SERIES_RANGE = 250
 _MODEL_SWITCH_TIME = 10.0
+_PREDCTION_START = 50
 
 
 def generate_input_time_series() -> np.ndarray:
-    time_point = itertools.cycle(range(_TIME_SERIES_RANGE))
+    time_point = itertools.cycle(range(_PREDCTION_START, _TIME_SERIES_RANGE))
     while True:
         yield np.array((next(time_point),)).reshape(-1, 1)
 
@@ -63,8 +64,12 @@ def entry(self):
             predictor_slice2.switch_model(os.path.join(os.getcwd(), _DATA_FOLDER, model_name))
 
         # Send predicted values over RMR to decider_xapp
-        predicted_value_slice1 = predictor_slice1.predict(next(data))
-        predicted_value_slice2 = predictor_slice2.predict(next(data))
+        new_prediction_time = next(data)
+        print(f"NEW PREDICTION TIME: {new_prediction_time}")
+        
+        predicted_value_slice1 = predictor_slice1.predict(new_prediction_time)
+        predicted_value_slice2 = predictor_slice2.predict(new_prediction_time)
+        
 
         print(f"Predicted value for Slice 1: {predicted_value_slice1}")
         print(f"Predicted value for Slice 2: {predicted_value_slice2}")

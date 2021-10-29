@@ -42,7 +42,7 @@ label_PRB = df['prb_utilization_perc'].values
 
 
 # PRB data.
-def seasonal(t, amplitude, period):
+def seasonal(t):
     """PRB unilization."""
     # y1 = amplitude * np.sin((2*np.pi)*t/period)
     y1 = label_PRB[t] - 25
@@ -50,7 +50,7 @@ def seasonal(t, amplitude, period):
 
 
 # Time and PRB values
-data_df['s1'] = data_df['t'].apply(lambda t: seasonal(t, amplitude=2, period=40))
+data_df['s1'] = data_df['t'].apply(lambda t: seasonal(t))
 
 # Define target variable.
 data_df['y1'] = data_df['s1']
@@ -80,7 +80,7 @@ k1 = ConstantKernel(constant_value=2) * \
 k2 = ConstantKernel(constant_value=10, constant_value_bounds=(1e-2, 1e3)) * \
      RBF(length_scale=1e2, length_scale_bounds=(1, 1e3))
 
-kernel_1  = k2
+kernel_1  = k1
 
 gp1 = GaussianProcessRegressor(
     kernel=kernel_1,
