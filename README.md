@@ -1,4 +1,4 @@
-# ITU AI Challenge: Build-a-Thon
+# ITU AI Challenge: Build-a-Thon- Team AUTOMATO
 
 # Python xApps
 Python codes  for RIC xApp for prediction and decision
@@ -7,7 +7,7 @@ NOTE: Only Linux systems are supported (Ubuntu 20.04 works fine).
 
 ### Python code: xapp_prediction.py 
 
-Implements Gaussian Process Regression (GPR) as a ML model to make prediction. Given tha data (pla.csv), which PRB utilization taken from a real network in percentage, it perfoms training and also validation. Testing performance is based on MAE. This xapp forecasts PRB utilization in near future (e.g, next 500 ms.). We train GPR with prediction.py and save it. This xapp takes the saved model and uses it. 
+Implements Gaussian Process Regression (GPR) as a ML model to make prediction. Given tha data (data from Conqureors team or pla.csv), which PRB utilization taken from a real network in percentage, it perfoms training and also validation. Testing performance is based on MAE. This xapp forecasts PRB utilization in near future (e.g, next 500 ms.). We train GPR with prediction.py and save it. This xapp takes the saved model and uses it. We also parse the intent coming from Winest team to find URL of source, model and sink.
 
 ### Python code: xapp_decision.py 
 
