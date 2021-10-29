@@ -1,7 +1,7 @@
 # ITU AI Challenge: Build-a-Thon-     Team "AUTOMATO"
 
 # Python xApps
-Python codes  for RIC xApp for prediction and decision
+Python codes  for RIC xApp for prediction and decision. The main goal of this activity is to create a closed-loop that handles an emergency case (i.e., earthquake or fire) autonomously. It includes RAN resource monitoring and computing, that is realized with machine learning algorithms, and also resource allocation at RAN that turns to be an integer-optimization problem. We have achieved the goals of this activity, implemented in Python and presented the results in our report. Also, our implementation are realized as RIC xApps to be used in Open-RAN integration in future. 
 
 NOTE: Only Linux systems are supported (Ubuntu 20.04 works fine).
 
