@@ -1,4 +1,4 @@
-# ITU AI Challenge: Build-a-Thon- Team AUTOMATO
+# ITU AI Challenge: Build-a-Thon-     Team "AUTOMATO"
 
 # Python xApps
 Python codes  for RIC xApp for prediction and decision
