@@ -71,8 +71,8 @@ def entry(self):
         predicted_value_slice2 = predictor_slice2.predict(new_prediction_time)
         
 
-        print(f"Predicted value for Slice 1: {predicted_value_slice1}")
-        print(f"Predicted value for Slice 2: {predicted_value_slice2}")
+        print(f"Predicted PRB util. for Slice 1: {predicted_value_slice1}")
+        print(f"Predicted PRB util. for Slice 2: {predicted_value_slice2}")
 
         predicted_value = [predicted_value_slice1, predicted_value_slice2]
 

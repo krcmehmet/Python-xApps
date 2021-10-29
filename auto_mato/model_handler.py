@@ -8,10 +8,21 @@ import os
 import requests
 import urllib.request
 from bs4 import BeautifulSoup
+import json
 
-_DATA_FOLDER = "./data/"
 
-# TODO: Fetch models from server
+
+# Parse Intent  from Winest Team to read URLs
+
+
+with open('/Users/mehmetkrc/Desktop/ITU_Challenge_Github/ITUChallenge_BuildaThon_Activity4/data/source_api.json') as f:  # to be updated and entegrated
+  data_url = json.load(f)
+  
+_DATA_FOLDER = "./data/"  
+  
+with open('/Users/mehmetkrc/Desktop/ITU_Challenge_Github/ITUChallenge_BuildaThon_Activity4/data/model_api.json') as f:  # to be updated and entegrated
+  mdeols_url = json.load(f)
+
 _FILE_SERVER = "http://[::1]:8080"
 
 
