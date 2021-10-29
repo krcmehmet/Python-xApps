@@ -1,17 +1,19 @@
 # ITU AI Challenge: Build-a-Thon-     Team "AUTOMATO"
 
 # Python xApps
-Python codes  for RIC xApp for prediction and decision. The main goal of this activity is to create a closed-loop that handles an emergency case (i.e., earthquake or fire) autonomously. It includes RAN resource monitoring and computing, that is realized with machine learning algorithms, and also resource allocation at RAN that turns to be an integer-optimization problem. We have achieved the goals of this activity, implemented in Python and presented the results in our report. Also, our implementation are realized as RIC xApps to be used in Open-RAN integration in future. 
+Python codes  for RIC xApp for prediction and decision. 
+
+The main goal of this activity is to create a closed-loop that handles an emergency case (i.e., earthquake or fire) autonomously. It includes RAN resource monitoring and computing, that is realized with machine learning algorithms, and also resource allocation at RAN that turns to be an integer-optimization problem. We have achieved the goals of this activity, implemented in Python and presented the results in our report. Also, our implementation is realized as RIC xApps to be used in Open-RAN integration in future. 
 
 NOTE: Only Linux systems are supported (Ubuntu 20.04 works fine).
 
 ### Python code: xapp_prediction.py 
 
-Implements Gaussian Process Regression (GPR) as a ML model to make prediction. Given tha data (data from Conqureors team or pla.csv), which PRB utilization taken from a real network in percentage, it perfoms training and also validation. Testing performance is based on MAE. This xapp forecasts PRB utilization in near future (e.g, next 500 ms.). We train GPR with prediction.py and save it. This xapp takes the saved model and uses it. We also parse the intent coming from Winest team to find URL of source, model and sink.
+For monitoring RAN resource we apply Gaussian Process Regression (GPR) as a ML model to make a time-series prediction for future traffic in the network. Given tha data (data from Conqureors team or pla.csv), which is PRB utilization, it perfoms training and also validation. Testing performance is based on MAE. With GPR we predict how much resource (PRB) will be availabe for emergence case in near future. The implementation is a RIC xapp which  forecasts PRB utilization  (e.g, at every 500 ms.). We train GPR with prediction.py. We have trained two differet ML models and saved them on a remote server, and these models can be  pulled and used dyanmically.  We also parse the intent coming from Winest team to find URL of source (data), model and sink.
 
 ### Python code: xapp_decision.py 
 
-It makes a decision given the input from xapp_prediction. Two different algorithms are implemented, these are defined in the code as ALG1 and ALG2. In decision.py the variable ALG should be set to specify the running algorithm. If the algorithm type is changed the docker container needs to rebuilt. To rebuild the docker container use
+Once the traffic prediction is done, prediction_xapp.py sends the predictions of PRB usage to decision_xapp.py that  makes resource allocation decision. Two different algorithms are implemented for the resource allocation, and these are defined in the code as ALG1 and ALG2. In decision.py the variable ALG should be set to specify the running algorithm. If the algorithm type is changed the docker container needs to rebuilt. To rebuild the docker container use
 ```
 sudo docker-compose build
 ```
