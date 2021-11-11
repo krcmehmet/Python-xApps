@@ -1,6 +1,8 @@
 #  ITU-ML5G-PS-014: Build-a-thon(PoC) - Team "AUTOMATO"
 This repo contains our submission for ITU AI Challenge 2021: ITU-ML5G-PS-014- Build-a-thon(PoC) Network resource allocation for emergency management based on closed loop analysis.  
 
+Our detailed report and demo are available in this repo.
+
 # Python xApps
 Python codes  for RIC xApp for prediction and decision. 
 
