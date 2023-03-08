@@ -1,24 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul 20 22:23:00 2021
+decision_xapp.py, Decision service.
 
-@author: dtayli
+@author: Team AutoMato
 """
 import json
 
 from ricxappframe.xapp_frame import Xapp
 
 from auto_mato.common import _RMR_PORT
-
-# from .decision import basic_decider  # TODO: This will be implemented the in file decider.py
-
-
-def basic_decider(prediction: float) -> bool:
-    return True if prediction > 0.5 else False
+from decision import basic_decider
 
 
-def parse_decision_message(input: dict) -> dict:
-    return input
+def parse_decision_message(message: dict) -> dict:
+    return message
 
 
 def entry(self):
@@ -34,7 +29,6 @@ def entry(self):
 
         if messages:
             # We are only concerned with the last message.
-            message = None
             for (message, raw_message) in messages:
                 # Need to free the raw_message to prevent memory leaks
                 if message:
@@ -46,9 +40,8 @@ def entry(self):
                     )
 
                     # Call the decision function
-                    result = basic_decider(**decider_inputs)
-                    print(f"\nDecider inputs: {decider_inputs}")
-                    print(f">>> Decider result is: {result}\n")
+                    print(f"\nDecider inputs (Estimated PRB utilization %): {decider_inputs}")
+                    _result = basic_decider(**decider_inputs)
 
                     # TODO: Set changes downstream
                 self.rmr_free(raw_message)

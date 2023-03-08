@@ -1,79 +1,45 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Aug 24 17:11:29 2020
+prediction.py
 
-@author: sarik
-
-Modified on Tue Aug 25 18:15:10 2020
-
-@author: mehmet.karaca
+@author: Team AutoMato
 """
+import pickle
+from typing import List
 
-# -*- coding: utf-8 -*-
-
-import csv
-
-import pandas as pd
-from keras.layers import Dense
-from keras.models import Sequential
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.model_selection import train_test_split
-from tensorflow import keras
-
-# Neural network
-model = Sequential(
-    [
-        Dense(16, input_dim=49, kernel_initializer="normal", activation="relu"),
-        Dense(16, activation="relu"),
-        Dense(1, activation="sigmoid"),
-    ]
-)
+import numpy as np
 
 
-df = pd.read_csv("dataset1.csv")
-df = df[df.columns.difference(["Unnamed: 0"])]
+class Predictor:
+    def __init__(self, model_file: str) -> None:
+        """Helper class to load and use ready scikit-learn model.
 
+        Parameters
+        ----------
+        model_file: Pickled scikit-learn model file.
+        """
+        with open(model_file, "rb") as file:
+            self.model = pickle.load(file)
 
-input_data = df.iloc[:, :49].values
-label_MOS = df["MOS"].values
+    def predict(self, data: np.ndarray) -> List[float]:
+        """ Returns predicted value.
 
+        Parameters
+        ----------
+        data: Input data for the predictor model.
 
-train_X, val_X, train_y, val_y = train_test_split(
-    input_data, label_MOS, test_size=0.25, random_state=14
-)
+        Returns
+        -------
+        prediction: np.ndarray
+        """
+        return self.model.predict(data).item()
 
-x_train = train_X
-y_train = train_y
+    def switch_model(self, new_model: str) -> None:
+        """Switches current model with the new one.
 
-x_test = val_X
-y_test = val_y
-
-
-# COMPILE
-keras.optimizers.Adam(learning_rate=0.01, beta_1=0.9, beta_2=0.999, amsgrad=False)
-model.compile(loss="mean_squared_error", optimizer="adam", metrics=["mae"])
-
-
-# TRAINING
-history = model.fit(x_train, y_train, epochs=200, batch_size=20)
-
-
-NNpredictions = model.predict(x_test)
-
-
-MAE = mean_absolute_error(val_y, NNpredictions)
-
-print("Neural Network validation MAE = ", MAE)
-RMSE = mean_squared_error(val_y, NNpredictions, squared=False)
-
-print("Neural Network validation RMSE = ", RMSE)
-
-ip = [RMSE]
-
-# Write RMSE as input to other xApp
-with open("input.csv", "w") as f:
-    writer = csv.writer(f)
-    writer.writerow(ip)
-
-# save ML model
-model.save("TrainedMLmodel.h5")
+        Parameters
+        ----------
+        new_model: Pickled scikit-learn model file.
+        """
+        with open(new_model, "rb") as file:
+            self.model = pickle.load(file)

@@ -1,0 +1,6 @@
+FROM svenstaro/miniserve:latest
+
+WORKDIR /src/server/
+COPY ./data/basic_prediction_model* ./data/
+
+CMD ["/src/server/data/"]
